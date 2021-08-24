@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The MovieDB</title>
+    <link rel="stylesheet" href="./css/all.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="" alt="" />
+        <nav>
+          <ul>
+            <li><a href="">Home</a></li>
+          </ul>
+        </nav>
+      </header>
+      <section class="description">
+        <h1>The most popular movies</h1>
+        <p>
+          En esta pequeña aplicaci&oacute;n podr&aacute;s ver un listado con las
+          pel&iacute;culas mas populares del momento, conoce todo lo que te
+          estas perdiendo del cine mundial. No pretendemos hacer apolog&iacute;a
+          a la pirater&iacute;a. esta es una aplicaci&oacute;on con fines
+          estrictamente informativos.
+        </p>
+      </section>
+      <div class="buttons">
+        <button id="print">Las mas populares</button>
+        <button id="topList-button">Las 5 mejores</button>
+      </div>
+
+      <ul id="movies"></ul>
+    </div>
+    <footer>
+      <div class="tecnologies">
+        <ul>
+          <p>Build with</p>
+          <li>
+            <a
+              target="_blank"
+              href="https://developers.themoviedb.org/3/getting-started"
+              >TheMovieDataBase API</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="rigths">
+        <p>&copy; All Rigths Reserved</p>
+      </div>
+      <div class="socialNetworks">
+        <a href="https://github.com/CamiloBeltran24">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/camilobeltran24/"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a href="https://twitter.com/CamiloBeltran"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="https://www.instagram.com/camilobeltran24/"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+      <div class="author">
+        <p>Coded By @CamiloBeltran</p>
+      </div>
+    </footer>
+    <script>
+      const APIkey = "d405140f9d9c718edcf84b1fb56b3012";
+
+      function getMovie(id) {
+        const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIkey}`;
+        return fetch(url)
+          .then((response) => response.json())
+          .then((data) => data.results);
+      }
+
+      function getPopularMovies() {
+        const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${APIkey}`;
+        return fetch(url)
+          .then((response) => response.json())
+          .then((data) => data.results);
+      }
+
+      function getTopMoviesIds(n = 5) {
+        return getPopularMovies().then((popularMovies) =>
+          popularMovies.slice(0, n).map((movie) => movie.id)
+        );
+      }
+
+      function renderMovies(movies) {
+        const movieList = document.getElementById("movies");
+        movieList.innerHTML = "";
+        console.log(movies);
+        movies.forEach((movie) => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+            <img class="movieImg" src="https://image.tmdb.org/t/p/w342${movie.poster_path}" />
+            <h5 class="movieTittle">${movie.title}</h5>
+            <p>Released on <em>${movie.release_date}</em></p>
+            <button>Ver mas</button>
+            `;
+          movieList.appendChild(listItem);
+        });
+      }
+
+      document.getElementById("print").onclick = function () {
+        const movies = getPopularMovies().then((movies) =>
+          renderMovies(movies)
+        );
+        // window.scroll({
+        //   top: 100,
+        //   left: 0,
+        //   behavior: "smooth",
+        // });
+        setTimeout(() => {
+          window.scroll({
+            top: 560,
+            left: 0,
+            behavior: "smooth",
+          });
+        }, 200);
+      };
+      document.getElementById("topList-button").onclick = function () {};
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "top-movies",
+  "version": "1.0.0",
+  "description": "In this project you can see a list with 20 of the most popular movies at moment. this project use the The Movie Database API \"https://developers.themoviedb.org/3/getting-started/introduction\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server",
+    "goPretty": "sass --watch scss/styles.scss css/styles.css",
+    "static-server": "static-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamiloBeltran24/Top-movies.git"
+  },
+  "keywords": [
+    "javascript",
+    "movies",
+    "API",
+    "Callbacks"
+  ],
+  "author": "Christian Camilo Beltran Fonseca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CamiloBeltran24/Top-movies/issues"
+  },
+  "homepage": "https://github.com/CamiloBeltran24/Top-movies#readme",
+  "devDependencies": {
+    "live-server": "^1.1.0",
+    "sass": "^1.38.0",
+    "static-server": "^2.2.1"
+  }
+}
